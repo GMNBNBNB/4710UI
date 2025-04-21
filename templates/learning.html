@@ -1,10 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Learning Page</title>
-</head>
+{# learning.html — 继承自 nav.html 的学习页 #}
+{% extends "nav.html" %}
+
+{% block title %}Learning Page{% endblock %}
+
+{% block extra_style %}
+  {{ super() }}
+  .learning-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 40px auto;
+  }
+  .learning-btn {
+    display: inline-block;
+    width: 260px;
+    padding: 15px 0;
+    text-align: center;
+    background-color: #ddd;
+    color: #000;
+    text-decoration: none;
+    border: 1px solid #888;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+{% endblock %}
+
+{% block content %}
 <body>
     <h1>Learning Page</h1>
 </body>
-</html>
+<div class="learning-container">
+    <a class="learning-btn">Table Position</a>
+    <a class="learning-btn">Basic Game Flow</a>
+    <a class="learning-btn">Hand Ranking</a>
+    <a class="learning-btn">Betting Rules</a>
+</div>
+{% endblock %}

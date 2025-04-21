@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}nav bar{% endblock %}</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .nav {
+      background-color: #ccc;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .nav a {
+      display: inline-block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #000;
+      background-color: #00CED1;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .nav a.active {
+      background-color: #4169E1;
+      color: #fff;
+    }
+    .content {
+      background-color: #708090;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    {% block extra_style %}{% endblock %}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a>Table Position</a>
+    <a>Basic Game Flow</a>
+    <a>Hand Ranking</a>
+    <a>Betting Rules</a>
+    <a>Quiz</a>
+  </nav>
+
+  <div class="content">
+    {% block content %}
+    
+    {% endblock %}
+  </div>
+
+</body>
+</html>
