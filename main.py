@@ -74,7 +74,7 @@ def quiz(quiz_id):
             next_url=next_url
         )
 
-    # initial GET → no feedback
+    # First-time GET request → no feedback shown
     return render_template('quiz.html', quiz=quiz, quiz_id=quiz_id)
 
 @app.route('/results')
@@ -87,12 +87,12 @@ def results():
         if key not in answers:
             continue
 
-        # 单选题评分
+        # Score multiple choice questions
         if 'answer_index' in quiz:
             if answers[key] == quiz['answer_index']:
                 correct += 1
 
-        # 选牌题评分
+        # Score card-selection questions
         elif 'correct_cards' in quiz:
             if set(answers[key]) == set(quiz['correct_cards']):
                 correct += 1
