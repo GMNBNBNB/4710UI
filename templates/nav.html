@@ -52,14 +52,11 @@
     <a>Basic Game Flow</a>
     <a>Hand Ranking</a>
     <a>Betting Rules</a>
-    <a>Quiz</a>
+    <a href="{{ url_for('quiz_home') }}" class="{% if request.path == '/quiz' %}active{% endif %}">Quiz</a>
   </nav>
 
   <div class="content">
-    {% block content %}
-    
-    {% endblock %}
+    {% block content %}{% endblock %}
   </div>
-
 </body>
 </html>

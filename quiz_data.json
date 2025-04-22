@@ -1,0 +1,105 @@
+{
+  "quizzes": [
+    {
+      "id": 1,
+      "question": "Which one is biggest?",
+      "options": [
+        [
+          "6\u2663",
+          "8\u2666",
+          "Q\u2660",
+          "K\u2663",
+          "6\u2660"
+        ],
+        [
+          "6\u2666",
+          "7\u2663",
+          "J\u2665",
+          "A\u2660",
+          "A\u2665"
+        ],
+        [
+          "3\u2663",
+          "7\u2660",
+          "8\u2665",
+          "2\u2663",
+          "8\u2663"
+        ],
+        [
+          "K\u2660",
+          "10\u2666",
+          "Q\u2666",
+          "J\u2663",
+          "A\u2666"
+        ]
+      ],
+      "answer_index": 3,
+      "explanation": "Straight is rank 6, bigger than others."
+    },
+    {
+      "id": 2,
+      "question": "Which player has bigger hand power?",
+      "options": [
+        [
+          "3\u2663",
+          "5\u2660",
+          "8\u2663",
+          "Q\u2660",
+          "A\u2665"
+        ],
+        [
+          "4\u2663",
+          "6\u2660"
+        ],
+        [
+          "A\u2663",
+          "A\u2660"
+        ]
+      ],
+      "answer_index": 2,
+      "explanation": "A pair of Aces beats any single high card or mixed cards."
+    },
+    {
+      "id": 3,
+      "question": "Small Blind bet $5. How much do you have to bet as Big Blind?",
+      "options": [
+        "$5",
+        "$10",
+        "$15",
+        "$50"
+      ],
+      "answer_index": 1,
+      "explanation": "The big blind is twice the small blind, so $10."
+    },
+    {
+      "id": 4,
+      "question": "The player before you checked. It\u2019s your turn \u2014 what action can you take?",
+      "options": [
+        "check",
+        "raise",
+        "fold",
+        "All-in"
+      ],
+      "answer_index": 0,
+      "explanation": "Since no bet is outstanding, you may check (pass)."
+    },
+    {
+      "id": 5,
+      "question": "If you raise and everyone folds, an opponent asks to see your cards. Can you choose to refuse?",
+      "options": [
+        "Yes, you can refuse",
+        "No, you must show"
+      ],
+      "answer_index": 0,
+      "explanation": "If everyone folds to your raise, you may muck and refuse to show."
+    },
+    {
+      "id": 6,
+      "question": "Combine for maximum card power",
+      "cards": ["2\u2663", "3\u2660", "6\u2660", "9\u2660", "10\u2660", "7\u2660", "7\u2666", "6\u2663", "8\u2663", "K\u2660", "A\u2663", "Q\u2660", "5\u2666"],
+      "num_select": 5,
+      "correct_cards": ["A\u2663", "K\u2660", "Q\u2660", "10\u2660", "9\u2660"],
+      "explanation": "The best 5\u2011card hand here is the A\u2011K\u2011Q\u201110\u20119 straight."
+    }
+  ]
+}
