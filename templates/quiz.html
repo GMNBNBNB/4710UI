@@ -1,0 +1,142 @@
+{% extends "nav.html" %}
+{% block title %}Quiz {{ quiz_id }}{% endblock %}
+
+{% block content %}
+  <style>
+    .quiz-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background-color: #5a6d7a;
+      padding: 40px;
+      border-radius: 12px;
+      color: white;
+    }
+    h3 {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 30px;
+      word-wrap: break-word;
+      line-height: 1.5;
+    }
+    form, .feedback-box {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .form-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .form-check-input {
+      margin-top: 5px;
+      transform: scale(1.3);
+    }
+    .form-check-label {
+      font-size: 1.1rem;
+      word-wrap: break-word;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    .card-item {
+      background: #fff;
+      color: #000;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+    .card-item input {
+      margin-right: 6px;
+      transform: scale(1.2);
+    }
+    .btn-primary {
+      align-self: center;
+      padding: 8px 20px;
+      font-size: 1rem;
+    }
+    .feedback-box {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 8px;
+    }
+    .feedback-box.correct { border: 2px solid #4caf50; }
+    .feedback-box.wrong   { border: 2px solid #f44336; }
+  </style>
+
+  <div class="quiz-container">
+    <h3>Quiz {{ quiz_id }}: {{ quiz.question }}</h3>
+
+    {# -- SHOW FEEDBACK IF AVAILABLE -- #}
+    {% if feedback %}
+      <div class="feedback-box {{ 'correct' if feedback.correct else 'wrong' }}">
+        {% if feedback.correct %}
+          <h4>✔ Correct!</h4>
+        {% else %}
+          <h4>✖ Wrong</h4>
+        {% endif %}
+        <p>{{ feedback.explanation }}</p>
+      </div>
+      <a href="{{ next_url }}" class="btn btn-primary">Next</a>
+
+    {# -- OTHERWISE, SHOW THE FORM -- #}
+    {% else %}
+      <form method="POST">
+        {% if quiz.options %}
+          {% for option in quiz.options %}
+            {% set idx = loop.index0 %}
+            <div class="form-check">
+              <input class="form-check-input"
+                     type="radio"
+                     name="option"
+                     value="{{ idx }}"
+                     id="opt{{ idx }}">
+              <label class="form-check-label" for="opt{{ idx }}">
+                {% if option is string %}
+                  {{ option }}
+                {% else %}
+                  {{ option | join(' ') }}
+                {% endif %}
+              </label>
+            </div>
+          {% endfor %}
+
+        {% elif quiz.cards %}
+          <p style="text-align:center;">Select exactly {{ quiz.num_select }} cards:</p>
+          <div class="card-grid">
+            {% for card in quiz.cards %}
+              <label class="card-item">
+                <input type="checkbox" name="selected_cards" value="{{ card }}">
+                {{ card }}
+              </label>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      {# enforce checkbox limit if needed #}
+      {% if quiz.cards %}
+      <script>
+        const max = {{ quiz.num_select }};
+        const boxes = document.querySelectorAll('input[name="selected_cards"]');
+        boxes.forEach(cb => {
+          cb.addEventListener('change', () => {
+            const checked = [...boxes].filter(x => x.checked);
+            if (checked.length > max) cb.checked = false;
+          });
+        });
+      </script>
+      {% endif %}
+    {% endif %}
+  </div>
+{% endblock %}

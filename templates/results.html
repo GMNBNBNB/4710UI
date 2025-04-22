@@ -1,0 +1,15 @@
+{% extends "nav.html" %}
+{% block title %}Quiz Results{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Quiz Complete!</h2>
+    <p>Your Score: {{ score }}</p>
+    <p>Accuracy: {{ (correct / total * 100) | round(2) }}%</p>
+    {% if passed %}
+      <p class="text-success">🎉 You passed the quiz!</p>
+    {% else %}
+      <p class="text-danger">Try again next time!</p>
+    {% endif %}
+  </div>
+{% endblock %}
