@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}nav bar{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/nav-arrows.css') }}">
+  {% block extra_head %}{% endblock %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_arrows.css') }}">
   <style>
     html, body { 
       margin: 0; 
@@ -48,10 +49,10 @@
 </head>
 <body>
   <nav class="nav">
-    <a>Table Position</a>
-    <a>Basic Game Flow</a>
-    <a>Hand Ranking</a>
-    <a>Betting Rules</a>
+    <a href="{{ url_for('table_position') }}">Table Position</a>
+    <a href="{{ url_for('basic_game_flow') }}">Basic Game Flow</a>
+    <a href="{{ url_for('hand_ranking') }}">Hand Ranking</a>
+    <a href="{{ url_for('betting_rules') }}">Betting Rules</a>
     <a>Quiz</a>
   </nav>
 
