@@ -14,6 +14,14 @@ def learning():
 def test():
     return render_template('test.html')
 
+@app.route('/table_position')
+def table_position():
+    return render_template('table_position.html')
+
+@app.route('/basic_game_flow')
+def basic_game_flow():
+    return render_template('basic_game_flow.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
 

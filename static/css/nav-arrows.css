@@ -1,0 +1,28 @@
+.nav-arrows {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+.nav-arrows a {
+    text-decoration: none;
+    color: #000;
+    background-color: #eee;
+    padding: 8px 16px;
+    border: 2px solid #999;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+}
+/* 左箭头 */
+.nav-arrows a.prev::before {
+    content: "◀";
+    margin-right: 6px;
+    /* position: static; 伪元素默认就是 static，不用写 */
+}
+/* 右箭头 */
+.nav-arrows a.next::after {
+    content: "▶";
+    margin-left: 6px;
+}
