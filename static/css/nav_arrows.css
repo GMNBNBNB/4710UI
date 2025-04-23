@@ -15,13 +15,10 @@
     display: inline-flex;
     align-items: center;
 }
-/* 左箭头 */
 .nav-arrows a.prev::before {
     content: "◀";
     margin-right: 6px;
-    /* position: static; 伪元素默认就是 static，不用写 */
 }
-/* 右箭头 */
 .nav-arrows a.next::after {
     content: "▶";
     margin-left: 6px;

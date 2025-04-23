@@ -1,0 +1,128 @@
+{% extends "nav.html" %}
+
+{% block title %}Betting Rules{% endblock %}
+
+{% block extra_head %}
+  <style>
+    /* Header */
+    .header { text-align: center; margin: 30px 0; font-size: 2rem; font-weight: bold; }
+
+    /* Blinds inputs */
+    .blinds-inputs { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; }
+    .blinds-inputs input { width: 70px; padding: 8px; font-size: 1.1rem; border: 1px solid #ccc; border-radius: 4px; }
+    .blinds-inputs label { font-size: 1rem; }
+
+    /* Action buttons container */
+    .actions { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 25px; }
+
+    /* Action button styles */
+    .action-btn {
+      background: #f9f9f9;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .action-btn:hover {
+      background: #e8f6f9;
+      border-color: #aad8e6;
+    }
+    .action-btn.active {
+      background: #d1ecf1;
+      border-color: #bee5eb;
+    }
+
+    /* Icon large and label darker */
+    .action-btn .icon {
+      font-size: 2.5rem;
+      color: #333;
+    }
+    .action-btn .label {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #222;
+    }
+
+    /* Description box */
+    .description {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      padding: 15px;
+      font-size: 1.1rem;
+      color: #333;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      min-height: 80px;
+      background: #fafafa;
+    }
+
+    /* Navigation arrows spacing */
+    .nav-arrows { display: flex; justify-content: space-between; margin: 30px auto; max-width: 600px; }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="header">Betting Rules</div>
+
+  <div class="blinds-inputs">
+    <label>BB: <input type="number" id="bb" value="50" min="1"></label>
+    <label>SB: <input type="number" id="sb" readonly></label>
+  </div>
+
+  <div class="actions">
+    <div class="action-btn" data-key="check"><div class="icon">✅</div><div class="label">Check</div></div>
+    <div class="action-btn" data-key="bet"><div class="icon">💵</div><div class="label">Bet</div></div>
+    <div class="action-btn" data-key="call"><div class="icon">🤝</div><div class="label">Call</div></div>
+    <div class="action-btn" data-key="raise"><div class="icon">⬆️</div><div class="label">Raise</div></div>
+    <div class="action-btn" data-key="fold"><div class="icon">❌</div><div class="label">Fold</div></div>
+    <div class="action-btn" data-key="allin"><div class="icon">💰</div><div class="label">All-in</div></div>
+  </div>
+
+  <div class="description" id="desc">Click an action above to see its explanation.</div>
+
+  <div class="nav-arrows">
+    <a href="{{ url_for('basic_game_flow') }}" class="prev">Game Flow</a>
+    <a href="{{ url_for('hand_ranking') }}" class="next">Hand Ranking</a>
+  </div>
+
+  <script>
+    // Blind calculation
+    const bbInput = document.getElementById('bb');
+    const sbInput = document.getElementById('sb');
+    function updateSB() {
+      const bb = parseInt(bbInput.value) || 0;
+      sbInput.value = Math.max(1, Math.floor(bb / 2));
+    }
+    bbInput.addEventListener('input', updateSB);
+    updateSB();
+
+    // Descriptions for each action
+    const descriptions = {
+      check: 'Pass the action if no one has bet.',
+      bet: 'Place the first wager of the round (min equal to BB).',
+      call: 'Match the current highest bet to stay in the hand.',
+      raise: 'Increase the current bet; must be at least the previous bet or raise.',
+      fold: 'Forfeit your hand and exit the round.',
+      allin: 'Bet all your remaining chips; no further actions this hand.'
+    };
+
+    // Button interactions
+    const buttons = document.querySelectorAll('.action-btn');
+    const descEl = document.getElementById('desc');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const key = btn.getAttribute('data-key');
+        descEl.textContent = descriptions[key];
+      });
+    });
+  </script>
+{% endblock %}

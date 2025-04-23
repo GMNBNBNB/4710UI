@@ -1,0 +1,44 @@
+{% extends "nav.html" %}
+
+{% block title %}Hand Ranking{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/hand_rankings.css') }}">
+{% endblock %}
+
+{% block extra_style %}
+  .header {
+    margin: 20px 0;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  .video-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 30px;
+  }
+  .video-container iframe {
+    width: 560px;
+    height: 315px;
+    border: none;
+  }
+  .nav-arrows {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+{% endblock %}
+
+{% block content %}
+  <div class="header">Step 1: Basic Game Flow</div>
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/GE7qGgosaqo?si=taS-zBCznSIPhcez"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+    </iframe>
+  </div>
+  <div class="nav-arrows">
+    <a href="{{ url_for('table_position') }}" class="prev">Table Position</a>
+    <a href="{{ url_for('hand_ranking') }}" class="next">Hand Ranking</a>
+  </div>
+{% endblock %}

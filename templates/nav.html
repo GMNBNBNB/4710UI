@@ -17,12 +17,22 @@
     }
     .nav {
       background-color: #ccc;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #000;
+      text-decoration: none;
+    }
+    .nav-items {
+      display: flex;
       gap: 10px;
     }
-    .nav a {
+    .nav-items a {
       display: inline-block;
       padding: 10px 20px;
       text-decoration: none;
@@ -31,7 +41,7 @@
       border-radius: 8px;
       font-weight: bold;
     }
-    .nav a.active {
+    .nav-items a.active {
       background-color: #4169E1;
       color: #fff;
     }
@@ -42,18 +52,20 @@
       padding: 40px 20px;
       text-align: center;
       font-size: 1.5rem;
-      position: relative;
     }
     {% block extra_style %}{% endblock %}
   </style>
 </head>
 <body>
   <nav class="nav">
-    <a href="{{ url_for('table_position') }}">Table Position</a>
-    <a href="{{ url_for('basic_game_flow') }}">Basic Game Flow</a>
-    <a href="{{ url_for('hand_ranking') }}">Hand Ranking</a>
-    <a href="{{ url_for('betting_rules') }}">Betting Rules</a>
-    <a href="{{ url_for('quiz_home') }}" class="{% if request.path == '/quiz' %}active{% endif %}">Quiz</a>
+    <a href="{{ url_for('index') }}" class="site-title">Texas Hold'em poker</a>
+    <div class="nav-items">
+      <a href="{{ url_for('table_position') }}">Table Position</a>
+      <a href="{{ url_for('basic_game_flow') }}">Basic Game Flow</a>
+      <a href="{{ url_for('hand_ranking') }}">Hand Ranking</a>
+      <a href="{{ url_for('betting_rules') }}">Betting Rules</a>
+      <a href="{{ url_for('quiz_home') }}" class="{% if request.path == '/quiz' %}active{% endif %}">Quiz</a>
+    </div>
   </nav>
 
   <div class="content">
