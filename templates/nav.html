@@ -4,8 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}nav bar{% endblock %}</title>
+  {% block extra_head %}{% endblock %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_arrows.css') }}">
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; }
+    html, body { 
+      margin: 0; 
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif; 
+    }
     .nav {
       background-color: #ccc;
       padding: 10px;
@@ -27,29 +36,28 @@
       color: #fff;
     }
     .content {
+      flex: 1;
       background-color: #708090;
       color: #fff;
       padding: 40px 20px;
       text-align: center;
       font-size: 1.5rem;
+      position: relative;
     }
     {% block extra_style %}{% endblock %}
   </style>
 </head>
 <body>
   <nav class="nav">
-    <a>Table Position</a>
-    <a>Basic Game Flow</a>
-    <a>Hand Ranking</a>
-    <a>Betting Rules</a>
-    <a>Quiz</a>
+    <a href="{{ url_for('table_position') }}">Table Position</a>
+    <a href="{{ url_for('basic_game_flow') }}">Basic Game Flow</a>
+    <a href="{{ url_for('hand_ranking') }}">Hand Ranking</a>
+    <a href="{{ url_for('betting_rules') }}">Betting Rules</a>
+    <a href="{{ url_for('quiz_home') }}" class="{% if request.path == '/quiz' %}active{% endif %}">Quiz</a>
   </nav>
 
   <div class="content">
-    {% block content %}
-    
-    {% endblock %}
+    {% block content %}{% endblock %}
   </div>
-
 </body>
 </html>
