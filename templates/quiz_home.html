@@ -5,6 +5,10 @@
   <div class="container mt-4">
     <h2>Welcome to the Texas Hold'em Quiz</h2>
     <p>This quiz will test your knowledge of poker rules and strategy.</p>
-    <a href="{{ url_for('quiz', quiz_id=1) }}" class="btn btn-primary mt-3">Start Quiz</a>
+    <button type="button"
+            class="btn btn-primary mt-3"
+            onclick='window.location.href="{{ url_for('quiz', quiz_id=1) }}"'>
+    Start Quiz
+    </button>
   </div>
 {% endblock %}

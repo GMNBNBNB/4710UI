@@ -9,13 +9,11 @@
     margin-bottom: 20px;
   }
   
-  /* 外层两栏布局 */
   .ranking-grid {
     display: flex;
     gap: 40px;
     align-items: flex-start;
   }
-  /* 每一列 */
   .ranking-column {
     flex: 1;
     display: flex;
@@ -23,7 +21,6 @@
     gap: 24px;
   }
   
-  /* 每一行条目：序号 + 文本 + 牌面 横向排列 */
   .ranking-item {
     display: flex;
     align-items: center;
@@ -50,7 +47,6 @@
     color: #ddd;
   }
   
-  /* 牌面容器 */
   .cards {
     flex: 1.5;
     display: flex;

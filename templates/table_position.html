@@ -6,7 +6,6 @@
 {% block extra_style %}
   {{ super() }}
 
-  /* 整体标题 */
   .table-title {
     text-align: left;
     background-color: #708090;
@@ -16,14 +15,12 @@
     margin-bottom: 20px;
   }
 
-  /* 牌桌容器 */
   .table-container {
     position: relative;
     width: 80vw;
     height: 60vh;
     margin: 0 auto;
   }
-  /* 绿色牌桌 */
   .table-container .table {
     position: absolute;
     top: 50%;
@@ -35,7 +32,6 @@
     transform: translate(-50%, -50%);
   }
 
-  /* 通用座位圆圈样式 */
   .seat-container {
     position: absolute;
     cursor: pointer;
@@ -49,7 +45,6 @@
     border: 2px solid #999;
     border-radius: 50%;
   }
-  /* dealer的圆圈大一些，颜色改为黑色 */
   .seat-container.dealer .seat {
     background-color: #000;
     border-color: #333;
@@ -79,7 +74,6 @@
     background-color: #FFD700; /* 金黄色 */
   }
 
-  /* 调整成更居中的百分比 */
   .under-the-gun {
     top: 5%;
     left: 50%;
@@ -106,7 +100,6 @@
     transform: translate(50%, -50%);
   }
 
-  /* 右侧点点点 */
   .seat-dot {
     position: absolute;
     width: 12px; height: 12px;

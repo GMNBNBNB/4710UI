@@ -70,12 +70,13 @@ def quiz(quiz_id):
             'quiz.html',
             quiz=quiz,
             quiz_id=quiz_id,
+            total=len(quiz_data),
             feedback={'correct': correct, 'explanation': explanation},
             next_url=next_url
         )
 
     # First-time GET request → no feedback shown
-    return render_template('quiz.html', quiz=quiz, quiz_id=quiz_id)
+    return render_template('quiz.html', quiz=quiz, quiz_id=quiz_id, total=len(quiz_data))
 
 @app.route('/results')
 def results():
