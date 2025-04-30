@@ -6,7 +6,18 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
 {% endblock %}
 
+
 {% block content %}
+
+<style>
+  h2 {
+    color: #515151;
+  }
+  p {
+    color: #a1a1a1;
+  }
+</style>
+
   <div class="container mt-4">
     <h2>Quiz Complete!</h2>
     <p>Your Score: {{ score }}</p>
