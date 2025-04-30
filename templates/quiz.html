@@ -2,12 +2,13 @@
 {% block title %}Quiz {{ quiz_id }}{% endblock %}
 
 {% block extra_head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+  {# jQuery UI CSS for sortable #}
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 {% endblock %}
 
 {% block content %}
-
   <div class="quiz-progress-wrapper">
     <div class="progress">
       <div id="quiz-progress-bar"
@@ -15,9 +16,7 @@
            role="progressbar"
            aria-valuemin="0"
            aria-valuemax="{{ total }}"
-           style="width:0%">
-        0/{{ total }}
-      </div>
+           style="width:0%">0/{{ total }}</div>
     </div>
   </div>
 
@@ -27,81 +26,89 @@
     {# -- SHOW FEEDBACK IF AVAILABLE -- #}
     {% if feedback %}
       <div class="feedback-box {{ 'correct' if feedback.correct else 'wrong' }}">
-        {% if feedback.correct %}
-          <h4>✔ Correct!</h4>
-        {% else %}
-          <h4>✖ Wrong</h4>
-        {% endif %}
+        <h4>{{ '✔ Correct!' if feedback.correct else '✖ Wrong' }}</h4>
         <p>{{ feedback.explanation }}</p>
       </div>
-      <br/>
-      <button type="button"
-              class="btn btn-primary"
-              onclick="window.location.href='{{ next_url }}'">
+      <button class="btn btn-primary"
+              onclick="location.href='{{ next_url }}'">
         Next
       </button>
+
     {# -- OTHERWISE, SHOW THE FORM -- #}
     {% else %}
-      <form method="POST">
+      <form method="POST" id="quiz-form">
         {% if quiz.options %}
+          {# multiple‐choice questions #}
           {% for option in quiz.options %}
             {% set idx = loop.index0 %}
-              <label class="option-card" for="opt{{ idx }}">
-                <input type="radio"
-                       name="option"
-                       value="{{ idx }}"
-                       id="opt{{ idx }}">
-                <div class="option-content">
-                  {% if option is string %}
-                  {{ option }}
-                  {% else %}
-                  {{ option | join(' ') }}
-                  {% endif %}
-                </div>
-              </label>
+            <label class="option-card" for="opt{{ idx }}">
+              <input type="radio"
+                     name="option"
+                     value="{{ idx }}"
+                     id="opt{{ idx }}">
+              <div class="option-content">
+                {{ option is string and option or option|join(' ') }}
+              </div>
+            </label>
           {% endfor %}
 
         {% elif quiz.cards %}
+          {# checkbox‐select questions #}
           <p style="text-align:center;">Select exactly {{ quiz.num_select }} cards:</p>
           <div class="card-grid">
             {% for card in quiz.cards %}
               <label class="card-item">
-                <input type="checkbox" name="selected_cards" value="{{ card }}">
+                <input type="checkbox"
+                       name="selected_cards"
+                       value="{{ card }}">
                 {{ card }}
               </label>
             {% endfor %}
           </div>
+
+        {% elif quiz.drag_order %}
+          {# drag‐and‐drop question #}
+          <p style="text-align:center;">Drag to reorder:</p>
+          <ul id="sortable" class="drag-list">
+            {% for item in quiz.drag_order %}
+              <li class="ui-state-default" data-value="{{ item }}">{{ item }}</li>
+            {% endfor %}
+          </ul>
+          <input type="hidden" name="dragged_order" id="dragged_order">
+
         {% endif %}
 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-
-      {# enforce checkbox limit if needed #}
-      {% if quiz.cards %}
-      <script>
-        const max = {{ quiz.num_select }};
-        const boxes = document.querySelectorAll('input[name="selected_cards"]');
-        boxes.forEach(cb => {
-          cb.addEventListener('change', () => {
-            const checked = [...boxes].filter(x => x.checked);
-            if (checked.length > max) cb.checked = false;
-          });
-        });
-      </script>
-      {% endif %}
     {% endif %}
   </div>
 
+  {# jQuery + jQuery UI for sortable #}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
   <script>
     $(function(){
-      var current = {{ quiz_id }};
-      var max     = {{ total }};
-      var pct = max > 0 ? Math.round(current / max * 100) : 100;
-      $('#quiz-progress-bar')
-              .css('width', pct + '%')
-              .attr('aria-valuenow', current)
-              .text(current + '/' + max);
+      // progress bar
+      var pct = Math.round({{ quiz_id }} / {{ total }} * 100);
+      $('#quiz-progress-bar').css('width',pct+'%').text('{{ quiz_id }}/{{ total }}');
+
+      // make drag list sortable
+      {% if quiz.drag_order %}
+      $('#sortable').sortable();
+      $('#quiz-form').on('submit', function(){
+        var order = $('#sortable').sortable('toArray',{attribute:'data-value'});
+        $('#dragged_order').val(order.join('|'));
+      });
+      {% endif %}
+
+      // enforce checkbox limit
+      {% if quiz.cards %}
+      $('input[name="selected_cards"]').change(function(){
+        if($('input[name="selected_cards"]:checked').length > {{ quiz.num_select }})
+          this.checked = false;
+      });
+      {% endif %}
     });
   </script>
 {% endblock %}
