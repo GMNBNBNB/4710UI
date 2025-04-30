@@ -5,19 +5,20 @@
   .title {
     font-size: 2rem;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
   }
   
   .ranking-grid {
     display: flex;
     gap: 40px;
     align-items: flex-start;
+    margin-bottom: 50px;
   }
   .ranking-column {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 40px;
   }
   
   .ranking-item {
