@@ -74,10 +74,21 @@ form, .feedback-box {
     transform: scale(1.2);
 }
 .btn-primary {
-    align-self: center;
-    padding: 8px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.25rem;
     font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    background: linear-gradient(135deg, #8fce00 0%, #a8e000 100%);
+    border: none;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease;
 }
+
 .feedback-box {
     text-align: center;
     padding: 20px;
@@ -121,4 +132,21 @@ form, .feedback-box {
     color: #fff;
     border-radius: 6px;
     padding: 10px 18px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #7fbe00 0%, #98d000 100%);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    background: #7cb900;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(0);
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(168, 224, 0, 0.4);
 }
