@@ -39,6 +39,10 @@ def quiz(quiz_id):
         elif 'cards' in quiz:
             sel_cards = request.form.getlist('selected_cards')
             session['answers'][str(quiz_id - 1)] = sel_cards
+        elif 'drag_order' in quiz:                      # <-- NEW
+            order_str = request.form.get('dragged_order', '')
+            dragged = [s.strip() for s in order_str.split('|') if s.strip()]
+            session['answers'][str(quiz_id - 1)] = dragged
 
         session.modified = True
 
@@ -48,6 +52,9 @@ def quiz(quiz_id):
             correct = (session['answers'][str(quiz_id - 1)] == quiz['answer_index'])
         elif 'correct_cards' in quiz:
             correct = (set(session['answers'][str(quiz_id - 1)]) == set(quiz['correct_cards']))
+        elif 'correct_order' in quiz:                   # <-- NEW
+            correct = (session['answers'][str(quiz_id - 1)]
+                       == quiz['correct_order'])
 
         # build explanation
         explanation = quiz.get('explanation')
@@ -96,6 +103,10 @@ def results():
         # Score card-selection questions
         elif 'correct_cards' in quiz:
             if set(answers[key]) == set(quiz['correct_cards']):
+                correct += 1
+
+        elif 'correct_order' in quiz:
+            if answers[key] == quiz['correct_order']:
                 correct += 1
 
     total = len(quiz_data)

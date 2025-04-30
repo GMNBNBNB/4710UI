@@ -86,9 +86,21 @@
     {
       "id": 10,
       "question": "Drag these poker hands from weakest to strongest.",
-      "drag_order": ["High Card","Pair","Two Pair","Straight","Flush"],
-      "correct_order": ["High Card","Pair","Two Pair","Straight","Flush"],
-      "explanation": "This is the correct ranking from weakest to strongest."
+      "drag_order": [
+        "Flush",
+        "Straight",
+        "High Card",
+        "Two Pair",
+        "Pair"
+      ],
+      "correct_order": [
+        "High Card",
+        "Pair",
+        "Two Pair",
+        "Straight",
+        "Flush"
+      ],
+      "explanation": "Weakest to strongest: High Card, Pair, Two Pair, Straight, Flush."
     }
   ]
 }
