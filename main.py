@@ -123,6 +123,14 @@ def hand_ranking():
 def betting_rules():
     return render_template('betting_rules.html')
 
+@app.route('/restart')
+def restart():
+    # clear out all previous answers
+    session.clear()
+    # send them straight to question 1
+    return redirect(url_for('quiz', quiz_id=1))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
