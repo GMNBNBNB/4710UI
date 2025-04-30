@@ -1,39 +1,95 @@
 {% extends "nav.html" %}
 
-{% block title %}Home page{% endblock %}
+{% block title %}Home Page{% endblock %}
+
+{% block extra_style %}
+<style>
+  /* Page Background */
+  body {
+    background-color: #e8f5e9;
+  }
+
+  /* Welcome Card */
+  .welcome-card {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #4CAF50;
+    color: #fff;
+    border: 2px solid #388E3C;
+    border-radius: 1rem;
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .welcome-card h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #fff;
+  }
+
+  /* Action Cards */
+  .features {
+    padding: 60px 80px;
+    text-align: center;
+  }
+  .feature-card {
+    background: #dcedc8; /* 淡绿色背景 */
+    border: 2px solid #aed581; /* 绿色边框 */
+    border-radius: 1rem;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    transition: transform 0.3s;
+  }
+  .feature-card i {
+    font-size: 1.75rem;
+  }
+  .feature-card h5 {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    color: #333;
+  }
+  .feature-card p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #555;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Main Page</title>
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style>
-        .center-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-top: 20px; /* Adjusts the content to be closer to the top */
-        }
-        .btn-custom {
-            margin: 10px;
-            width: 200px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="center-content">
-            <h1 class="mb-4">Main Page</h1>
-            <a href="{{ url_for('learning') }}"><button class="btn btn-primary btn-custom">Go to Learning Page</button></a>
-            <a href="{{ url_for('quiz_home') }}"><button class="btn btn-success btn-custom">Start Quiz</button></a>
-        </div>
+  <!-- Welcome Card -->
+  <div class="welcome-card">
+    <h1>Welcome to Your Learning Platform</h1>
+  </div>
+
+  <!-- Learning & Quiz Cards -->
+  <div class="container features">
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <a href="{{ url_for('learning') }}" class="text-decoration-none">
+          <div class="card feature-card">
+            <i class="bi bi-book text-primary"></i>
+            <h5>Learning Page</h5>
+            <p>Explore a range of topics curated by experts.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mb-4">
+        <a href="{{ url_for('quiz_home') }}" class="text-decoration-none">
+          <div class="card feature-card">
+            <i class="bi bi-bar-chart-line text-success"></i>
+            <h5>Quiz</h5>
+            <p>Test your knowledge with engaging quizzes.</p>
+          </div>
+        </a>
+      </div>
     </div>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</body>
-</html>
+  </div>
+
+  <!-- Bootstrap JS and Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 {% endblock %}
