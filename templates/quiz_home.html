@@ -1,14 +1,127 @@
 {% extends "nav.html" %}
+
 {% block title %}Quiz Home{% endblock %}
 
+{% block extra_style %}
+  {{ super() }}
+  <style>
+    .quiz-container {
+      max-width: 400px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 1rem;
+      text-align: center;
+    }
+    .quiz-container h2 {
+      font-size: 1.75rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    .quiz-container p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+    /* Slider Button Styles */
+    .slider-container {
+      position: relative;
+      width: 260px;
+      height: 40px;
+      background: #e0e0e0;
+      border-radius: 20px;
+      margin: 0 auto;
+      user-select: none;
+    }
+    .slider-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      background: #4CAF50;
+      transition: width 0.2s;
+    }
+    .slider-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border-radius: 50%;
+      border: 2px solid #4CAF50;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #4CAF50;
+      transition: left 0.2s;
+    }
+    .slider-text {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      color: #888;
+      font-size: 0.9rem;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
-  <div class="container mt-4">
-    <h2>Welcome to the Texas Hold'em Quiz</h2>
-    <p>This quiz will test your knowledge of poker rules and strategy.</p>
-    <button type="button"
-            class="btn btn-primary mt-3"
-            onclick='window.location.href="{{ url_for('quiz', quiz_id=1) }}"'>
-    Start Quiz
-    </button>
+  <div class="quiz-container">
+    <h2>Texas Hold'em Quiz</h2>
+    <p>Slide the button to begin!</p>
+    <div class="slider-container" id="slider">
+      <div class="slider-track" id="track"></div>
+      <div class="slider-text">➔ Slide to Start</div>
+      <div class="slider-thumb" id="thumb">➔</div>
+    </div>
   </div>
+  <script>
+    (function() {
+      const slider = document.getElementById('slider');
+      const thumb = document.getElementById('thumb');
+      const track = document.getElementById('track');
+      const maxRight = slider.clientWidth - thumb.clientWidth;
+      let dragging = false, startX;
+
+      ['mousedown','touchstart'].forEach(evt => {
+        thumb.addEventListener(evt, e => {
+          dragging = true;
+          startX = (e.touches ? e.touches[0].clientX : e.clientX) - thumb.offsetLeft;
+        });
+      });
+      ['mousemove','touchmove'].forEach(evt => {
+        document.addEventListener(evt, e => {
+          if (!dragging) return;
+          let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          let moveX = clientX - startX;
+          moveX = Math.max(0, Math.min(moveX, maxRight));
+          thumb.style.left = moveX + 'px';
+          track.style.width = (moveX + thumb.clientWidth/2) + 'px';
+        });
+      });
+      ['mouseup','touchend'].forEach(evt => {
+        document.addEventListener(evt, () => {
+          if (!dragging) return;
+          dragging = false;
+          if (thumb.offsetLeft >= maxRight * 0.9) {
+            window.location.href = "{{ url_for('quiz', quiz_id=1) }}";
+          } else {
+            thumb.style.left = '0';
+            track.style.width = '0';
+          }
+        });
+      });
+    })();
+  </script>
 {% endblock %}
