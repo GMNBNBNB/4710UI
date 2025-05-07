@@ -47,9 +47,9 @@
     {
       "id": 6,
       "question": "Combine for maximum card power",
-      "cards": ["2\u2663","3\u2660","6\u2660","9\u2660","10\u2660","7\u2660","7\u2666","6\u2663","8\u2663","K\u2660","A\u2663","Q\u2660","5\u2666"],
+      "cards": ["2\u2663","3\u2660","6\u2660","10\u2660","J\u2660","7\u2660","7\u2666","6\u2663","8\u2663","K\u2660","A\u2663","Q\u2660","5\u2666"],
       "num_select": 5,
-      "correct_cards": ["A\u2663","K\u2660","Q\u2660","10\u2660","9\u2660"],
+      "correct_cards": ["A\u2663","K\u2660","Q\u2660","J\u2660","10\u2660"],
       "explanation": "The best 5-card hand here is the A-K-Q-10-9 straight."
     },
     {
