@@ -4,36 +4,115 @@
 
 {% block extra_style %}
   {{ super() }}
-  .learning-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    margin: 40px auto;
-  }
-  .learning-btn {
-    display: inline-block;
-    width: 260px;
-    padding: 15px 0;
-    text-align: center;
-    background-color: #ddd;
-    color: #000;
-    text-decoration: none;
-    border: 1px solid #888;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-  }
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #f0f0f0;
+    }
+    .page-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+      padding-top: 60px;
+      perspective: 1000px;
+    }
+    .learning-content {
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(-100px);
+      animation: drop 1s ease-out forwards;
+    }
+    .learning-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(-100px);
+      animation: drop 1s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+    @keyframes drop {
+      from { transform: translateY(-100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .learning-container {
+      perspective: 800px;
+    }
+    .learning-btn {
+      position: relative;
+      width: 260px;
+      height: 60px;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+      margin: 0 auto;
+    }
+    .btn-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      border: 1px solid #888;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: #000;
+    }
+    .btn-front {
+      background-color: #ddd;
+    }
+    .btn-back {
+      background-color: #bbb;
+      color: #000;
+      transform: rotateY(180deg);
+    }
+    .learning-btn.flipped {
+      transform: rotateY(180deg);
+    }
+    .btn-face a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      line-height: 60px;
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
-<body>
+<div class="page-wrapper">
+  <div class="learning-content">
     <h1>Learning Page</h1>
-</body>
-<div class="learning-container">
-    <a class="learning-btn" href="{{ url_for('table_position') }}">Table Position</a>
-    <a class="learning-btn" href="{{ url_for('basic_game_flow') }}">Basic Game Flow</a>
-    <a class="learning-btn" href="{{ url_for('hand_ranking') }}">Hand Ranking</a>
-    <a class="learning-btn" href="{{ url_for('betting_rules') }}">Betting Rules</a>
+    <div class="learning-container">
+      <div class="learning-btn" onclick="this.classList.toggle('flipped')">
+        <div class="btn-face btn-front"><a href="{{ url_for('table_position') }}">Table Position</a></div>
+        <div class="btn-face btn-back"><a href="{{ url_for('table_position') }}">Table Position</a></div>
+      </div>
+      <div class="learning-btn" onclick="this.classList.toggle('flipped')">
+        <div class="btn-face btn-front"><a href="{{ url_for('basic_game_flow') }}">Basic Game Flow</a></div>
+        <div class="btn-face btn-back"><a href="{{ url_for('basic_game_flow') }}">Basic Game Flow</a></div>
+      </div>
+      <div class="learning-btn" onclick="this.classList.toggle('flipped')">
+        <div class="btn-face btn-front"><a href="{{ url_for('hand_ranking') }}">Hand Ranking</a></div>
+        <div class="btn-face btn-back"><a href="{{ url_for('hand_ranking') }}">Hand Ranking</a></div>
+      </div>
+      <div class="learning-btn" onclick="this.classList.toggle('flipped')">
+        <div class="btn-face btn-front"><a href="{{ url_for('betting_rules') }}">Betting Rules</a></div>
+        <div class="btn-face btn-back"><a href="{{ url_for('betting_rules') }}">Betting Rules</a></div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

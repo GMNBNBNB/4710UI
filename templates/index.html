@@ -4,9 +4,25 @@
 
 {% block extra_style %}
 <style>
-  /* Page Background */
+  /* Page Background with faint image overlay */
   body {
     background-color: #e8f5e9;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://centiosglobal.com/wp-content/uploads/2023/05/a69872543618d558e02cac7137c9fc2e5fdef909-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(232, 245, 233, 0.7);
+    background-blend-mode: overlay;
+    z-index: -1;
   }
 
   /* Welcome Card */
@@ -32,8 +48,8 @@
     text-align: center;
   }
   .feature-card {
-    background: #dcedc8; 
-    border: 2px solid #aed581; 
+    background: #dcedc8;
+    border: 2px solid #aed581;
     border-radius: 1rem;
     max-width: 300px;
     margin: 0 auto;
@@ -55,6 +71,9 @@
   }
   .feature-card:hover {
     transform: translateY(-5px);
+  }
+  .content {
+    background-color: transparent !important;
   }
 </style>
 {% endblock %}
